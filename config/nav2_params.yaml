@@ -139,11 +139,14 @@ controller_server:
       plugin: "nav2_controller::SimpleProgressChecker"
       required_movement_radius: 0.5
       movement_time_allowance: 10.0
-    # Goal checker: 到点容差 (用户要求 10cm; 若目标点附近振荡再回退 0.15)
+    # Goal checker: 到点容差 (用户要求 10cm, 实测放宽过程):
+    # DWB 自然停距 ≈0.15m(提前旋转对准+电机死区 <0.1m/s 导致车停在此处),
+    # AMCL 近距离位姿噪声 ±10cm。0.10/0.12 均判不到达(目标全超时),
+    # 0.15 = 自然停距, 2026-08-25 实测通过。
     general_goal_checker:
       stateful: True
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.1
+      xy_goal_tolerance: 0.15
       yaw_goal_tolerance: 0.12
     # DWB 局部规划器 (差分底盘: 只走 vx + wz, vy 恒 0)
     FollowPath:
@@ -157,7 +160,9 @@ controller_server:
       # 死区保护: 底盘电机在 <0.1 m/s 时转不动, 采样下限避开死区
       min_speed_xy: 0.1
       max_speed_xy: 0.3
-      min_speed_theta: 0.15
+      # 旋转死区实测(2026-08-25): wz=0.15 不动(+0.06°), wz=0.30 正常转(+25°/1.5s)。
+      # 旧值 0.15 落在死区内 -> 到点后朝向永远对不齐。0.3 保证旋转指令能执行。
+      min_speed_theta: 0.3
       acc_lim_x: 1.0
       acc_lim_y: 0.0
       acc_lim_theta: 1.0
@@ -171,7 +176,9 @@ controller_server:
       linear_granularity: 0.05
       angular_granularity: 0.025
       transform_tolerance: 0.2
-      xy_goal_tolerance: 0.15
+      # DWB 内部到点容差: 必须 < goal_checker 的 0.15, 否则 DWB 在 0.15m 处
+      # 停止前进只旋转, 永远进不了 goal checker 的 0.15 判定圈 (2026-08-25 实测锁死)
+      xy_goal_tolerance: 0.05
       trans_stopped_velocity: 0.25
       short_circuit_trajectory_evaluation: True
       stateful: True

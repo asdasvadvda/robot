@@ -82,6 +82,9 @@ def run_patrol(nav, waypoints, timeout, dwell):
             if time.time() - t0 > timeout:
                 nav.get_logger().warn(f'[航点 {i+1}] 超时 {timeout:.0f}s, 取消')
                 nav.cancelTask()
+                # 取消后 Nav2 的 recovery 行为(Spin 等)需要时间完全中止,
+                # 马上发下一个目标会被秒拒(实测 0.0s 失败)。静置 3s 等系统复位。
+                time.sleep(3.0)
                 break
             fb = nav.getFeedback()
             if fb and hasattr(fb, 'distance_remaining') and \
