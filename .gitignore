@@ -1,0 +1,25 @@
+# --- colcon 构建产物 ---
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+
+# --- Python ---
+__pycache__/
+*.pyc
+
+# --- 崩溃 core dump ---
+core
+core.*
+
+# --- rosbag 录制数据 ---
+*.bag
+*.db3
+*.db3-journal
+
+# --- 编辑器/个人配置 ---
+.vscode/
+.claude/
+
+# --- 临时文件 ---
+*.log
+/tmp/

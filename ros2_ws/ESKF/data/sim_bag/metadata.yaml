@@ -1,0 +1,32 @@
+rosbag2_bagfile_information:
+  version: 5
+  storage_identifier: sqlite3
+  duration:
+    nanoseconds: 9990000000
+  starting_time:
+    nanoseconds_since_epoch: 1600000000000000000
+  message_count: 1050
+  topics_with_message_count:
+    - topic_metadata:
+        name: /odom
+        type: nav_msgs/msg/Odometry
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 50
+    - topic_metadata:
+        name: /imu
+        type: sensor_msgs/msg/Imu
+        serialization_format: cdr
+        offered_qos_profiles: ""
+      message_count: 1000
+  compression_format: ""
+  compression_mode: ""
+  relative_file_paths:
+    - sim_bag_0.db3
+  files:
+    - path: sim_bag_0.db3
+      starting_time:
+        nanoseconds_since_epoch: 1600000000000000000
+      duration:
+        nanoseconds: 9990000000
+      message_count: 1050

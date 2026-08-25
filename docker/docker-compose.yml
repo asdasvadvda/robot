@@ -1,0 +1,35 @@
+services:
+
+  ros2_dev:
+    image: robot-dev:humble
+    container_name: inspection_robot_ros2
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    privileged: true
+
+    network_mode: host
+
+    environment:
+      - DISPLAY=${DISPLAY}
+      - ROS_DOMAIN_ID=0
+
+    volumes:
+      # 整个工作区整仓挂载:ros2_ws/maps/scripts/config/docs/firmware/docker/.devcontainer 都在里面
+      - ..:/home/ubuntu/my_ros2_ws
+
+      # USB设备
+      - /dev/ttyACM0:/dev/ttyACM0   # STM32 底盘串口
+      - /dev/ttyUSB0:/dev/ttyUSB0   # MS200 激光雷达串口
+
+
+    working_dir:
+      /home/ubuntu
+
+
+    stdin_open: true
+    tty: true
+
+    command: bash

@@ -1,0 +1,19 @@
+# 编译产物
+build/
+install/
+log/
+*.obj
+*.exe
+*.pdb
+*.ilk
+*.log
+
+# VSCode 本地配置（可选提交，但通常排除）
+.vscode/
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 数据产物（可脚本重新生成 / launch 每次重写，不长期跟踪）
+data/odom_filtered_bag/

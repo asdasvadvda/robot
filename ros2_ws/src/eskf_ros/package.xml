@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>eskf_ros</name>
+  <version>0.1.0</version>
+  <description>Error-State Kalman Filter ROS2 节点：订阅 /imu 和 /odom，发布 /odom_filtered。核心算法复用 ESKF 学习项目的 include/eskf.hpp。</description>
+  <maintainer email="wh@todo.todo">wh</maintainer>
+  <license>MIT</license>
+
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>geometry_msgs</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

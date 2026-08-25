@@ -1,0 +1,5 @@
+# 仿真 IMU 噪声（由 gen_euroc_sim.py 生成，与注入值同源）
+accelerometer_noise_density: 0.003535534    # m/s^2/√Hz
+accelerometer_random_walk: 0.0
+gyroscope_noise_density: 0.000141421        # rad/s/√Hz
+gyroscope_random_walk: 0.0

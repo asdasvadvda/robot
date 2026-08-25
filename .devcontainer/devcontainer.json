@@ -1,0 +1,8 @@
+{
+  "name": "inspection_robot_ros2",
+  "dockerComposeFile": "../docker/docker-compose.yml",
+  "service": "ros2_dev",
+  "workspaceFolder": "/home/ubuntu/my_ros2_ws",
+  "remoteUser": "ubuntu",
+  "shutdownAction": "none"
+}

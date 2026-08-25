@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+
+<package format="3">
+
+  <!-- ROS2包名称 -->
+  <name>robot_driver</name>
+
+  <!-- 包版本 -->
+  <version>0.0.0</version>
+
+  <!-- 包描述 -->
+  <description>
+    STM32 serial driver for robot chassis
+  </description>
+
+  <!-- 作者信息 -->
+  <maintainer email="ubuntu@todo.todo">ubuntu</maintainer>
+
+  <!-- 开源协议，暂时使用Apache-2.0 -->
+  <license>Apache-2.0</license>
+
+
+  <!-- 构建工具 -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+
+  <!-- ROS2 C++客户端库 -->
+  <!-- 对应代码中的 #include "rclcpp/rclcpp.hpp" -->
+  <depend>rclcpp</depend>
+  <depend>nav_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_geometry_msgs</depend>
+
+  <!-- 测试相关，暂时保留 -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+
+  <!-- 使用ament_cmake构建 -->
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+
+</package>
