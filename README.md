@@ -65,7 +65,24 @@ my_ros2_ws/
 | `check_localization.py` | 定位收敛检查:粒子云加权标准差 <0.2m ≈ 已锁定 |
 | `map_click_pose.py` | 在图上点选坐标,换算地图系位姿喂给 RViz/巡检脚本(需图形界面) |
 | `map_drive_roundtrip.py` | 建图驱动:直行 dist 米 → 保存地图 → 退回起点 |
+| `compare_eskf_ekf.sh` | **ESKF vs EKF 融合对比**:record 实车录数据 → offline 重放同一份数据喂两个滤波器,严格同条件对比(见下) |
+| `compare_odom.py` | 对比节点:按时间戳对齐统计 EKF/ESKF 输出差异,出 CSV + 轨迹/误差 PNG(离线对比自动调用,也可单独跑) |
 | `tools/` | 调试工具:test_drive_*(直线/漂移测试)、test_rot_deadzone.py(旋转死区实测)、patrol_pose_monitor.py(巡检位姿记录)、go_home.py(单点回原点)、traj_recorder.py 等 |
+
+## ESKF vs EKF 融合对比(路线 A: 并行/离线)
+
+自己写的 ESKF(`eskf_ros` 包, 输出 `/odom_filtered`)与生产链路的 robot_localization EKF(`/odometry/filtered`)吃同样输入、同在 odom 系、同起点,可直接对比;**必须按消息时间戳对齐**(两个滤波器启动时刻不同,不能按墙钟比)。
+
+```bash
+# 1. 实车巡检时录数据(起着 nav_bringup, 车跑完整流程回原点后 Ctrl+C)
+bash /home/ubuntu/my_ros2_ws/scripts/compare_eskf_ekf.sh record run1
+
+# 2. 离线重放: 同一份数据现算 ESKF, 与录好的 EKF 输出对比(不需要车)
+bash /home/ubuntu/my_ros2_ws/scripts/compare_eskf_ekf.sh offline run1 --plot compare.png
+#    bag 存 /home/ubuntu/my_ros2_ws/bags/run1; 对比图默认生成在同目录
+```
+
+硬指标:巡检回原点后,两个滤波器**距原点漂移**都应 ≈ 0(闭环误差);轨迹贴合看对比图的误差曲线。
 
 ## 硬件串口映射
 
